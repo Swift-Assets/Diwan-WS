@@ -24,6 +24,8 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,21,38,.86);backdrop-filt
 .nav-links{display:flex;gap:26px;align-items:center;font-size:15px}
 .nav-links a{color:var(--muted)}
 .nav-links a:hover{color:var(--gold);opacity:1}
+.nav-links a.btn{color:#0F1526}
+.nav-links a.btn:hover{color:#0F1526}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#0F1526;font-weight:600;border-radius:99px;padding:12px 28px;transition:transform .15s ease, box-shadow .15s ease}
 .btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,162,39,.35);opacity:1}
 .btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold)}
