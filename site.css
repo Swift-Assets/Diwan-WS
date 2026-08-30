@@ -1,8 +1,8 @@
 /* Diwan — brand site styles. Night ground, gold accents, cream text. */
-@font-face{font-family:Sacramento;src:url(fonts/sacramento.ttf);font-display:swap}
-@font-face{font-family:Cormorant;src:url(fonts/cormorant-600.ttf);font-weight:600;font-display:swap}
-@font-face{font-family:Plex;src:url(fonts/plex-400.ttf);font-weight:400;font-display:swap}
-@font-face{font-family:Plex;src:url(fonts/plex-600.ttf);font-weight:600;font-display:swap}
+@font-face{font-family:Sacramento;src:url(sacramento.ttf);font-display:swap}
+@font-face{font-family:Cormorant;src:url(cormorant-600.ttf);font-weight:600;font-display:swap}
+@font-face{font-family:Plex;src:url(plex-400.ttf);font-weight:400;font-display:swap}
+@font-face{font-family:Plex;src:url(plex-600.ttf);font-weight:600;font-display:swap}
 
 :root{
   --night:#0F1526; --night-2:#131B33; --panel:#161F38; --line:#2A3760;
