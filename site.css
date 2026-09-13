@@ -1,8 +1,10 @@
 /* Diwan — brand site styles. Night ground, gold accents, cream text. */
-@font-face{font-family:Sacramento;src:url(sacramento.ttf);font-display:swap}
-@font-face{font-family:Cormorant;src:url(cormorant-600.ttf);font-weight:600;font-display:swap}
-@font-face{font-family:Plex;src:url(plex-400.ttf);font-weight:400;font-display:swap}
-@font-face{font-family:Plex;src:url(plex-600.ttf);font-weight:600;font-display:swap}
+@font-face{font-family:Sacramento;src:url(/sacramento.ttf);font-display:swap}
+@font-face{font-family:Cormorant;src:url(/cormorant-600.ttf);font-weight:600;font-display:swap}
+@font-face{font-family:Plex;src:url(/plex-400.ttf);font-weight:400;font-display:swap}
+@font-face{font-family:Plex;src:url(/plex-600.ttf);font-weight:600;font-display:swap}
+@font-face{font-family:PlexArabic;src:url(/plex-arabic-400.ttf);font-weight:400;font-display:swap}
+@font-face{font-family:PlexArabic;src:url(/plex-arabic-600.ttf);font-weight:600;font-display:swap}
 
 :root{
   --night:#0F1526; --night-2:#131B33; --panel:#161F38; --line:#2A3760;
@@ -100,3 +102,48 @@ footer{border-top:1px solid rgba(42,55,96,.6);padding:48px 0;color:var(--dim);fo
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .reveal.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---- five languages ---- */
+.lang{display:flex;gap:4px;flex-wrap:wrap}
+.lang a{color:var(--dim);font-size:13px;padding:4px 8px;border-radius:99px;border:1px solid transparent}
+.lang a.on{color:var(--gold);border-color:var(--gold);background:var(--gold-soft)}
+.lang a:hover{color:var(--gold);opacity:1}
+.langs{margin-top:34px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chip.small{margin:0;padding:6px 16px;font-size:14px}
+.video-note{color:var(--dim);font-size:14px;margin-top:12px}
+.badge{display:inline-block;float:right;background:var(--gold-soft);border:1px solid var(--gold);color:var(--gold);border-radius:99px;padding:3px 12px;font-size:12px;font-weight:600;letter-spacing:.5px}
+[dir=rtl] .badge{float:left}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:760px;margin:44px auto 0;text-align:start}
+.plan{background:linear-gradient(160deg,var(--panel),var(--night-2));border:1px solid var(--line);border-radius:26px;padding:40px 36px}
+.plan.highlight{border-color:var(--gold)}
+.plan h3{font-family:Cormorant,serif;font-size:28px;color:var(--gold);margin-bottom:10px}
+.plan .amount{font-size:48px;font-weight:600;color:#fff;line-height:1.1}
+.plan .amount small{font-size:18px;color:var(--muted);font-weight:400}
+.plan ul{list-style:none;margin:22px 0 0;padding:0}
+.plan li{color:var(--muted);font-size:16px;padding:7px 0;border-top:1px solid rgba(42,55,96,.5)}
+.plan li::before{content:"✓";color:var(--gold);margin-inline-end:10px}
+.price-note{color:var(--dim);font-size:14px;max-width:640px;margin:26px auto 0}
+.legal-note{color:var(--dim);font-size:13px;margin-top:18px}
+.legal table{border-collapse:collapse;width:100%;font-size:14px;margin:14px 0}
+.legal th,.legal td{border:1px solid var(--line);padding:8px 10px;text-align:start;vertical-align:top;color:var(--muted)}
+.legal th{color:var(--cream)}
+.legal .pre-line{white-space:pre-line}
+.legal .legal-links{margin-top:40px;color:var(--dim);font-size:14px}
+.legal ol{margin:10px 0 10px 22px;color:var(--muted)}
+.legal strong{color:var(--cream)}
+.legal a{overflow-wrap:anywhere}
+@media(max-width:1000px){.nav-links a:not(.btn){display:none}.nav-links .lang{display:flex}.nav-links .lang a{display:inline-block}}
+
+/* ---- right-to-left (Arabic) ---- */
+[dir=rtl]{font-family:PlexArabic,Plex,system-ui,sans-serif}
+[dir=rtl] body{font-family:PlexArabic,Plex,system-ui,sans-serif}
+[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3,[dir=rtl] .feature h3,[dir=rtl] .card h3,[dir=rtl] .plan h3,[dir=rtl] .feature .num{font-family:PlexArabic,system-ui,sans-serif;font-weight:600}
+[dir=rtl] .kicker{letter-spacing:0}
+[dir=rtl] .feature ul{margin:16px 20px 0 0}
+[dir=rtl] .legal ul{margin:10px 22px 10px 0}
+[dir=rtl] .hero h1{font-size:clamp(34px,4.6vw,56px);line-height:1.35}
+[dir=rtl] h2{line-height:1.4}
+
+/* the wordmark is Latin script whatever the page direction */
+svg text{direction:ltr;unicode-bidi:bidi-override}
+nav svg,.wordmark svg{direction:ltr}
