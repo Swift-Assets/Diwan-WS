@@ -1,0 +1,49 @@
+name: Archive website video
+
+# Moves a video from the repository's history into a GitHub Release, so it
+# stays downloadable forever without weighing on every clone. Run it from
+# the Actions tab with the commit that still contains the file and the tag
+# the release should carry. Nothing else in the repository is touched.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Commit or branch that contains the files'
+        required: true
+        default: 'main'
+      files:
+        description: 'Files to attach, space-separated'
+        required: true
+        default: 'diwan-pitch-de.mp4 poster.jpg'
+      tag:
+        description: 'Release tag'
+        required: true
+        default: 'website-video-2026-08'
+      title:
+        description: 'Release title'
+        required: true
+        default: 'Website video · August 2026 (German, 2:42)'
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - name: Create the release with the files attached
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for f in ${{ inputs.files }}; do
+            [ -f "$f" ] || { echo "::error::$f is not in ${{ inputs.ref }}"; exit 1; }
+          done
+          gh release create "${{ inputs.tag }}" ${{ inputs.files }} \
+            --title "${{ inputs.title }}" \
+            --notes "Archived from commit ${{ inputs.ref }} of this repository. Replaced on the website by a newer recording; kept here so it stays available."
+          echo "https://github.com/${GITHUB_REPOSITORY}/releases/tag/${{ inputs.tag }}" >> "$GITHUB_STEP_SUMMARY"
