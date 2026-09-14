@@ -22,21 +22,24 @@
 <body>
 <nav>
   <div class="container nav-inner">
-    <a href="/uk/" aria-label="Diwan"><svg viewBox="200 88 432 122" style="height:40px;display:block;margin:0 auto" aria-hidden="true"><text x="540" y="200" text-anchor="end" font-size="135" style="font-family:Sacramento,cursive" fill="#C9A227">Diwan</text><g transform="translate(468.2,51.6)"><g transform="rotate(42 76.8 128.4)"><g transform="scale(0.3)"><path d="M256 92 C334 92 372 148 372 214 C372 300 302 362 256 428 C210 362 140 300 140 214 C140 148 178 92 256 92 Z" fill="#C9A227"/><circle cx="256" cy="240" r="23" fill="#0F1526"/><path d="M256 263 V404" stroke="#0F1526" stroke-width="13" stroke-linecap="round"/></g></g></g></svg></a>
+    <a href="/uk/" aria-label="Diwan"><svg viewBox="200 88 432 122" style="width:var(--wm-w,142px);max-width:100%;height:auto;display:block;margin:0 auto" aria-hidden="true"><text x="540" y="200" text-anchor="end" font-size="135" style="font-family:Sacramento,cursive" fill="#C9A227">Diwan</text><g transform="translate(468.2,51.6)"><g transform="rotate(42 76.8 128.4)"><g transform="scale(0.3)"><path d="M256 92 C334 92 372 148 372 214 C372 300 302 362 256 428 C210 362 140 300 140 214 C140 148 178 92 256 92 Z" fill="#C9A227"/><circle cx="256" cy="240" r="23" fill="#0F1526"/><path d="M256 263 V404" stroke="#0F1526" stroke-width="13" stroke-linecap="round"/></g></g></g></svg></a>
     <div class="nav-links">
       <a href="#problem">Проблема</a>
       <a href="#funktionen">Функції</a>
       <a href="#video">Відео</a>
       <a href="#sicherheit">Безпека</a>
       <a href="#preis">Ціна</a>
-      <div class="lang" role="navigation" aria-label="Мова"><a href="/" lang="de" hreflang="de">Deutsch</a><a href="/ar/" lang="ar" hreflang="ar">العربية</a><a href="/en/" lang="en" hreflang="en">English</a><a href="/ru/" lang="ru" hreflang="ru">Русский</a><a href="/uk/" lang="uk" hreflang="uk" class="on" aria-current="page">Українська</a></div>
+      <details class="lang">
+        <summary aria-label="Мова: Українська"><span class="flag">🇺🇦</span><span class="code">UK</span><span class="caret" aria-hidden="true"></span></summary>
+        <ul role="list" aria-label="Мова"><li><a href="/" lang="de" hreflang="de"><span class="flag">🇩🇪</span>Deutsch</a></li><li><a href="/ar/" lang="ar" hreflang="ar"><span class="flag">🇸🇦</span>العربية</a></li><li><a href="/en/" lang="en" hreflang="en"><span class="flag">🇬🇧</span>English</a></li><li><a href="/ru/" lang="ru" hreflang="ru"><span class="flag">🇷🇺</span>Русский</a></li><li><a href="/uk/" lang="uk" hreflang="uk" class="on" aria-current="page"><span class="flag">🇺🇦</span>Українська</a></li></ul>
+      </details>
       <a class="btn small" href="https://app.diwan-sa.de" rel="noopener">Відкрити застосунок</a>
     </div>
   </div>
 </nav>
 <header class="hero">
   <div class="container">
-    <div class="wordmark"><svg viewBox="200 88 432 122" style="height:150px;display:block;margin:0 auto" aria-hidden="true"><text x="540" y="200" text-anchor="end" font-size="135" style="font-family:Sacramento,cursive" fill="#C9A227">Diwan</text><g transform="translate(468.2,51.6)"><g transform="rotate(42 76.8 128.4)"><g transform="scale(0.3)"><path d="M256 92 C334 92 372 148 372 214 C372 300 302 362 256 428 C210 362 140 300 140 214 C140 148 178 92 256 92 Z" fill="#C9A227"/><circle cx="256" cy="240" r="23" fill="#0F1526"/><path d="M256 263 V404" stroke="#0F1526" stroke-width="13" stroke-linecap="round"/></g></g></g></svg></div>
+    <div class="wordmark"><svg viewBox="200 88 432 122" style="width:var(--wm-w,531px);max-width:100%;height:auto;display:block;margin:0 auto" aria-hidden="true"><text x="540" y="200" text-anchor="end" font-size="135" style="font-family:Sacramento,cursive" fill="#C9A227">Diwan</text><g transform="translate(468.2,51.6)"><g transform="rotate(42 76.8 128.4)"><g transform="scale(0.3)"><path d="M256 92 C334 92 372 148 372 214 C372 300 302 362 256 428 C210 362 140 300 140 214 C140 148 178 92 256 92 Z" fill="#C9A227"/><circle cx="256" cy="240" r="23" fill="#0F1526"/><path d="M256 263 V404" stroke="#0F1526" stroke-width="13" stroke-linecap="round"/></g></g></g></svg></div>
     <h1>Німецьке листування не має <span class="gold">нікого гальмувати</span></h1>
     <p class="sub">Diwan розуміє офіційні листи, пише відповідь правильною німецькою і надсилає її — електронною поштою або справжнім паперовим листом. Для всіх, хто отримує пошту в Німеччині: з поясненням вашою мовою, якщо хочете. Перевіряєте і схвалюєте ви.</p>
     <div class="cta">
@@ -220,6 +223,9 @@
 document.getElementById("y").textContent = new Date().getFullYear();
 const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+const lang = document.querySelector("details.lang");
+document.addEventListener("click", e => { if (lang.open && !lang.contains(e.target)) lang.open = false; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") lang.open = false; });
 </script>
 </body>
 </html>

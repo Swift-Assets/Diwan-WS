@@ -43,17 +43,34 @@ function checkKeys(ref, other, path, lang) {
 }
 for (const l of LANGS) if (l !== "de") checkKeys(content.de, content[l], "", l);
 
+/** Flag shown next to each language in the switcher. Arabic has no single flag; the Saudi one is the usual convention. */
+const FLAG = { de: "🇩🇪", ar: "🇸🇦", en: "🇬🇧", ru: "🇷🇺", uk: "🇺🇦" };
+
+/**
+ * The wordmark scales from its width: `h` is the height it gets when there is
+ * room, and on narrow screens it shrinks with the container instead of being
+ * cut off (the viewBox is 432×122, so width = height × 432/122). A parent
+ * can set --wm-w to override the width (the nav does so on small screens).
+ */
 const WORDMARK = (h) =>
-  `<svg viewBox="200 88 432 122" style="height:${h}px;display:block;margin:0 auto" aria-hidden="true"><text x="540" y="200" text-anchor="end" font-size="135" style="font-family:Sacramento,cursive" fill="#C9A227">Diwan</text><g transform="translate(468.2,51.6)"><g transform="rotate(42 76.8 128.4)"><g transform="scale(0.3)"><path d="M256 92 C334 92 372 148 372 214 C372 300 302 362 256 428 C210 362 140 300 140 214 C140 148 178 92 256 92 Z" fill="#C9A227"/><circle cx="256" cy="240" r="23" fill="#0F1526"/><path d="M256 263 V404" stroke="#0F1526" stroke-width="13" stroke-linecap="round"/></g></g></g></svg>`;
+  `<svg viewBox="200 88 432 122" style="width:var(--wm-w,${Math.round((h * 432) / 122)}px);max-width:100%;height:auto;display:block;margin:0 auto" aria-hidden="true"><text x="540" y="200" text-anchor="end" font-size="135" style="font-family:Sacramento,cursive" fill="#C9A227">Diwan</text><g transform="translate(468.2,51.6)"><g transform="rotate(42 76.8 128.4)"><g transform="scale(0.3)"><path d="M256 92 C334 92 372 148 372 214 C372 300 302 362 256 428 C210 362 140 300 140 214 C140 148 178 92 256 92 Z" fill="#C9A227"/><circle cx="256" cy="240" r="23" fill="#0F1526"/><path d="M256 263 V404" stroke="#0F1526" stroke-width="13" stroke-linecap="round"/></g></g></g></svg>`;
 
 const pathFor = (l) => (l === "de" ? "/" : `/${l}/`);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+/**
+ * Language switcher: a native <details> dropdown — flag + short code closed,
+ * flag + full name per language open. Works without JavaScript; the small
+ * script at the end of the page only closes it on an outside click or Escape.
+ */
 function langSwitcher(current, t) {
-  return `<div class="lang" role="navigation" aria-label="${esc(t.nav.language)}">${LANGS.map(
-    (l) =>
-      `<a href="${pathFor(l)}" lang="${l}" hreflang="${l}"${l === current ? ' class="on" aria-current="page"' : ""}>${content[l].name}</a>`,
-  ).join("")}</div>`;
+  return `<details class="lang">
+        <summary aria-label="${esc(t.nav.language)}: ${esc(content[current].name)}"><span class="flag">${FLAG[current]}</span><span class="code">${current.toUpperCase()}</span><span class="caret" aria-hidden="true"></span></summary>
+        <ul role="list" aria-label="${esc(t.nav.language)}">${LANGS.map(
+          (l) =>
+            `<li><a href="${pathFor(l)}" lang="${l}" hreflang="${l}"${l === current ? ' class="on" aria-current="page"' : ""}><span class="flag">${FLAG[l]}</span>${content[l].name}</a></li>`,
+        ).join("")}</ul>
+      </details>`;
 }
 
 function head(t, lang, canonicalPath, extra = "") {
@@ -248,6 +265,9 @@ ${t.pricing.plans
 document.getElementById("y").textContent = new Date().getFullYear();
 const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+const lang = document.querySelector("details.lang");
+document.addEventListener("click", e => { if (lang.open && !lang.contains(e.target)) lang.open = false; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") lang.open = false; });
 </script>
 </body>
 </html>
