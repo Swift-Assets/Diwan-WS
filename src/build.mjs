@@ -43,8 +43,19 @@ function checkKeys(ref, other, path, lang) {
 }
 for (const l of LANGS) if (l !== "de") checkKeys(content.de, content[l], "", l);
 
-/** Flag shown next to each language in the switcher. Arabic has no single flag; the Saudi one is the usual convention. */
-const FLAG = { de: "🇩🇪", ar: "🇸🇦", en: "🇬🇧", ru: "🇷🇺", uk: "🇺🇦" };
+/**
+ * Flag shown next to each language in the switcher, as small inline SVGs
+ * rather than emoji: emoji flags depend on the device's emoji font (Windows
+ * shows letters instead, and many devices still draw Syria's old flag).
+ * Arabic carries the flag of Syria (green, white, black, three red stars).
+ */
+const FLAG = {
+  de: '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFCE00"/><rect width="30" height="13.33" fill="#DD0000"/><rect width="30" height="6.67" fill="#000"/></svg>',
+  ar: '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#007A3D"/><rect y="13.33" width="30" height="6.67" fill="#000"/><polygon points="10.00,7.40 10.58,9.20 12.47,9.20 10.94,10.31 11.53,12.10 10.00,10.99 8.47,12.10 9.06,10.31 7.53,9.20 9.42,9.20" fill="#CE1126"/><polygon points="15.00,7.40 15.58,9.20 17.47,9.20 15.94,10.31 16.53,12.10 15.00,10.99 13.47,12.10 14.06,10.31 12.53,9.20 14.42,9.20" fill="#CE1126"/><polygon points="20.00,7.40 20.58,9.20 22.47,9.20 20.94,10.31 21.53,12.10 20.00,10.99 18.47,12.10 19.06,10.31 17.53,9.20 19.42,9.20" fill="#CE1126"/></svg>',
+  en: '<svg viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="2"/><path d="M30 0V30M0 15H60" stroke="#fff" stroke-width="10"/><path d="M30 0V30M0 15H60" stroke="#C8102E" stroke-width="6"/></svg>',
+  ru: '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#D52B1E"/><rect width="30" height="13.33" fill="#0039A6"/><rect width="30" height="6.67" fill="#fff"/></svg>',
+  uk: '<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFD700"/><rect width="30" height="10" fill="#0057B7"/></svg>',
+};
 
 /**
  * The wordmark scales from its width: `h` is the height it gets when there is
