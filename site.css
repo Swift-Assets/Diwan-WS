@@ -26,7 +26,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,21,38,.86);backdrop-filt
 .nav-links{display:flex;gap:26px;align-items:center;font-size:15px}
 .nav-links a{color:var(--muted)}
 .nav-links a:hover{color:var(--gold);opacity:1}
-.nav-links a.btn{color:#0F1526}
+.nav-links a.btn{color:#0F1526;white-space:nowrap;flex-shrink:0}
 .nav-links a.btn:hover{color:#0F1526}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#0F1526;font-weight:600;border-radius:99px;padding:12px 28px;transition:transform .15s ease, box-shadow .15s ease}
 .btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,162,39,.35);opacity:1}
@@ -36,7 +36,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,21,38,.86);backdrop-filt
 /* hero */
 .hero{padding:110px 0 90px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:-40% -20% auto;height:120%;background:radial-gradient(ellipse at 50% 0%,rgba(201,162,39,.10),transparent 62%);pointer-events:none}
-.wordmark svg{height:150px;margin:0 auto}
+.wordmark svg{margin:0 auto}
 .hero h1{font-family:Cormorant,serif;font-size:clamp(38px,5.4vw,62px);font-weight:600;line-height:1.18;margin:26px auto 0;max-width:820px}
 .hero h1 .gold{color:var(--gold)}
 .hero .sub{color:var(--muted);font-size:20px;max-width:660px;margin:22px auto 0}
@@ -103,11 +103,19 @@ footer{border-top:1px solid rgba(42,55,96,.6);padding:48px 0;color:var(--dim);fo
 .reveal.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
-/* ---- five languages ---- */
-.lang{display:flex;gap:4px;flex-wrap:wrap}
-.lang a{color:var(--dim);font-size:13px;padding:4px 8px;border-radius:99px;border:1px solid transparent}
-.lang a.on{color:var(--gold);border-color:var(--gold);background:var(--gold-soft)}
-.lang a:hover{color:var(--gold);opacity:1}
+/* ---- five languages: a dropdown with flags (native <details>, no JS needed) ---- */
+.lang{position:relative;flex-shrink:0}
+.lang summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:14px;font-weight:600;line-height:1;padding:8px 12px;border-radius:99px;border:1px solid var(--line);background:rgba(22,31,56,.6);white-space:nowrap;user-select:none;transition:color .15s,border-color .15s}
+.lang summary::-webkit-details-marker{display:none}
+.lang summary:hover,.lang[open] summary{color:var(--gold);border-color:var(--gold)}
+.lang .flag{display:inline-flex;flex-shrink:0}
+.lang .flag svg{width:21px;height:14px;border-radius:3px;display:block;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+.lang .caret{width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+.lang[open] .caret{transform:translateY(2px) rotate(-135deg)}
+.lang ul{list-style:none;margin:0;position:absolute;top:calc(100% + 10px);inset-inline-end:0;min-width:210px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:60}
+.lang li a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:var(--cream);font-size:15px;white-space:nowrap}
+.lang li a:hover{background:var(--gold-soft);color:var(--gold);opacity:1}
+.lang li a.on{color:var(--gold);background:var(--gold-soft)}
 .langs{margin-top:34px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .chip.small{margin:0;padding:6px 16px;font-size:14px}
 .video-note{color:var(--dim);font-size:14px;margin-top:12px}
@@ -132,7 +140,8 @@ footer{border-top:1px solid rgba(42,55,96,.6);padding:48px 0;color:var(--dim);fo
 .legal ol{margin:10px 0 10px 22px;color:var(--muted)}
 .legal strong{color:var(--cream)}
 .legal a{overflow-wrap:anywhere}
-@media(max-width:1000px){.nav-links a:not(.btn){display:none}.nav-links .lang{display:flex}.nav-links .lang a{display:inline-block}}
+@media(max-width:1000px){.nav-links{gap:12px}.nav-links>a:not(.btn){display:none}}
+@media(max-width:420px){.nav-inner{padding:0 16px}.nav-inner>a{--wm-w:110px;min-width:80px}.nav-links{gap:8px}.lang .code{display:none}.lang summary{gap:5px;padding:8px 10px}.btn.small{padding:9px 14px;font-size:14px}}
 
 /* ---- right-to-left (Arabic) ---- */
 [dir=rtl]{font-family:PlexArabic,Plex,system-ui,sans-serif}
